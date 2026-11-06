@@ -1,25 +1,26 @@
+
 name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Run daily at midnight
-  workflow_dispatch:        # Allow manual run
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
       - uses: actions/checkout@v4
 
-      - uses: miccy/snake-evolution@v1
+      - name: Generate Snake
+        uses: miccy/snake-evolution@v1
         with:
           github_user_name: ${{ github.repository_owner }}
-          outputs: |
-            dist/snake.svg
-            dist/snake-dark.svg?palette=github-dark
-            dist/snake-ocean.svg?palette=ocean
+          outputs: "dist/snake.svg"
 
       - name: Push to Output Branch
         uses: crazy-max/ghaction-github-pages@v4
