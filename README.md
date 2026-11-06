@@ -11,7 +11,7 @@
 ---
 
 ### Backend Stack & Tools : 
-[![My Skills](https://skillicons.dev/icons?i=js,ts,express,mysql,git,nodejs)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=python,js,ts,express,mysql,git,nodejs)](https://skillicons.dev)
 
 ---
 
