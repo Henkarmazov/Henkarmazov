@@ -11,10 +11,10 @@
 ---
 
 ### Backend Stack & Tools : 
-[![My Skills](https://skillicons.dev/icons?i=python,js,ts,express,mysql,git,nodejs)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=python,js,nodejs,express,mysql,git)](https://skillicons.dev)
 
 ---
 
 <p align="center">
-  <img alt="Snake eating contributions" src="https://github.com/Henkarmazov/Henkarmazov/blob/output/snake.svg" width="100%">
+  <img alt="Snake eating contributions" src="https://github.conodejsm/Henkarmazov/Henkarmazov/blob/output/snake.svg" width="100%">
 </p>  
