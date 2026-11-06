@@ -16,5 +16,5 @@
 ---
 
 <p align="center">
-  <img alt="Snake eating contributions" src="https://github.com/Henkaramazov/Henkaramazov/blob/output/snake.svg" width="100%">
+  <img alt="Snake eating contributions" src="https://github.com/Henkarmazov/Henkarmazov/blob/output/snake.svg" width="100%">
 </p>  
