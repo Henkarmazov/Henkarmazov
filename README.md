@@ -1,4 +1,4 @@
-# 🐳 Hello, I'm Henkaramazov
+# 🐳 Hi, I'm Henkaramazov
 
 **`Backend Developer | API & Database Enthusiast`**
 
