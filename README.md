@@ -3,9 +3,9 @@
 **`Backend Developer | API & Database Enthusiast`**
 
 - ⚙️ Currently exploring *Node.js, Express.js, TypeScript, MongoDB, and Backend Architecture*
-- 🔌 Interested in **API development, database management, and server optimization.**
+- 🗄 Interested in **API development, database management, and server optimization.**
 - 👨🏻‍💻 Check out my projects at [**Henkarmazov**](https://henkarmazov.my.id)
-- 📫 Reach me at **hendraxyy@gmail.com**
+- 📬 Reach me at **hendraxyy@gmail.com**
 - 🌊 Fun fact: **I enjoy building the logic that powers applications behind the scenes.**
 
 ---
