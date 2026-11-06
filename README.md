@@ -1,16 +1,20 @@
-## Hi there 👋
+# 🐳 Hello, I'm Henkaramazov
 
-<!--
-**Henkarmazov/Henkarmazov** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+**`Backend Developer | API & Database Enthusiast`**
 
-Here are some ideas to get you started:
+- ⚙️Currently exploring *Node.js, Express.js, TypeScript, MongoDB, and Backend Architecture*
+- 🔌 Interested in **API development, database management, and server optimization.**
+- 👨‍💻 Check out my projects at [www.henkarmazov.my.id](https://henkarmazov.my.id)
+- 📫 Reach me at **hendraxyy@gmail.com**
+- 🔋 Fun fact: **I enjoy building the logic that powers applications behind the scenes.**
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+---
+
+### Backend Stack & Tools : 
+[![My Skills](https://skillicons.dev/icons?i=html,css,js,ts,express,tailwind,mongodb,git,nodejs,vscode)](https://skillicons.dev)
+
+---
+
+<p align="center">
+  <img alt="Snake eating contributions" src="https://github.com/Henkaramazov/Henkaramazov/blob/output/snake.svg" width="100%">
+</p>  
