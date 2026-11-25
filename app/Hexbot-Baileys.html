@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexbot - Bot WhatsApp</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sky: #56bfff;
+      --sky-dark: #2196e8;
+      --sky-light: #e8f7ff;
+      --text: #182538;
+      --muted: #708399;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-color: #fbfdff;
+      background-image:
+        repeating-linear-gradient(
+          173deg,
+          transparent 0px,
+          transparent 48px,
+          rgba(80, 170, 240, 0.055) 49px,
+          transparent 51px
+        ),
+        repeating-linear-gradient(
+          8deg,
+          transparent 0px,
+          transparent 90px,
+          rgba(80, 170, 240, 0.04) 91px,
+          transparent 93px
+        );
+    }
+
+    /* Sketch background */
+    .sketch {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      color: #8bcfff;
+      opacity: 0.23;
+      animation: sketchFloat 7s ease-in-out infinite;
+    }
+
+    .sketch svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sketch-1 {
+      width: 190px;
+      top: 18%;
+      left: -35px;
+      transform: rotate(-12deg);
+    }
+
+    .sketch-2 {
+      width: 230px;
+      top: 15%;
+      right: -50px;
+      animation-delay: 2s;
+    }
+
+    .sketch-3 {
+      width: 140px;
+      bottom: 12%;
+      left: 8%;
+      animation-delay: 3s;
+    }
+
+    .sketch-4 {
+      width: 160px;
+      bottom: 15%;
+      right: 7%;
+      animation-delay: 1s;
+    }
+
+    /* Navbar */
+  .navbar {
+  position: fixed;
+  z-index: 2;
+  width: calc(100% - 40px);
+  max-width: 1050px;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(15px);
+  border: 1px solid #e7f4ff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(68, 174, 255, 0.07);
+  animation: fadeIn 0.8s ease;
+  }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .brand {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    /* Main */
+    main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 20px 80px;
+    }
+
+    .hero {
+  width: 100%;
+  max-width: 760px;
+  text-align: center;
+  margin-top: 180px;
+  animation: heroEnter 1s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .hero h1 {
+      font-size: clamp(70px, 12vw, 110px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -8px;
+      margin-bottom: 26px;
+      color: #17283c;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 span {
+      color: var(--sky);
+      position: relative;
+    }
+
+    /* Sketch underline */
+    .underline {
+      position: absolute;
+      width: 100%;
+      height: 14px;
+      bottom: -14px;
+      left: 0;
+      overflow: visible;
+    }
+
+    .underline path {
+      stroke: #56bfff;
+      stroke-width: 4;
+      stroke-linecap: round;
+      fill: none;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawLine 1.4s 0.5s ease forwards;
+    }
+
+    .subtitle {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 600;
+      color: #71849a;
+      letter-spacing: -1px;
+      margin: 35px 0 38px;
+      animation: fadeIn 1s 0.2s backwards;
+    }
+
+    /* Button */
+    .download-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 30px;
+      background: var(--sky);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 4px 5px 0px #b5e4ff;
+      transition: 0.25s ease;
+      animation: fadeIn 1s 0.3s backwards;
+    }
+
+    .download-btn:hover {
+      transform: translate(-2px, -3px) rotate(-1deg);
+      box-shadow: 7px 8px 0px #b5e4ff;
+      background: #36adf5;
+    }
+
+    .download-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 2px 0px #b5e4ff;
+    }
+
+    .download-btn svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    /* Features */
+    .features {
+      margin-top: 75px;
+      text-align: left;
+      animation: fadeIn 1s 0.4s backwards;
+    }
+
+    .feature-heading {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #273b50;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid #dcefff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 5px 6px 0 rgba(86,191,255,0.12);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px) rotate(-0.3deg);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 22px 24px;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    th {
+      background: #eff9ff;
+      color: #2196e8;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    td {
+      color: #64788d;
+      font-weight: 500;
+      border-top: 1px solid #eef7ff;
+    }
+
+    td:first-child {
+      color: #1d3045;
+      font-weight: 700;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 25px;
+      color: #91a5b8;
+      font-size: 14px;
+    }
+
+    footer span {
+      color: var(--sky-dark);
+      font-weight: 700;
+    }
+
+    /* Jumpscare */
+.scare {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  display: none;
+  background: #000;
+}
+
+.scare video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+    /* Animations */
+    @keyframes heroEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) scale(.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes sketchFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-18px) rotate(5deg); }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+       top: 16px;
+      }
+
+      main {
+         padding: 110px 20px 65px;
+      }
+
+      .hero h1 {
+        font-size: clamp(65px, 17vw, 90px);
+        letter-spacing: -5px;
+      }
+
+      .subtitle {
+        margin-top: 30px;
+        margin-bottom: 32px;
+      }
+
+      .features {
+        margin-top: 55px;
+      }
+
+      th, td {
+        padding: 17px 15px;
+        font-size: 13px;
+      }
+
+      .sketch-1 {
+        width: 110px;
+      }
+
+      .sketch-2 {
+        width: 130px;
+      }
+
+      .sketch-3 {
+        width: 90px;
+      }
+
+      .sketch-4 {
+        width: 100px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+      
+  </style>
+</head>
+<body>
+  <!-- Sketsa dekoratif -->
+  <div class="sketch sketch-1">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M42 160 C20 110 30 60 80 40 C125 18 160 50 170 90 C180 130 145 160 100 175"/>
+      <path d="M35 150 C10 90 40 40 85 32 C130 25 165 55 165 95"/>
+      <path d="M75 70 L95 62 L115 75 L125 100 L110 125 L85 130 L65 110 Z"/>
+      <path d="M65 90 L45 85 M125 90 L145 85 M80 135 L70 155 M110 135 L125 155"/>
+      <path d="M80 90 Q95 80 110 90 M85 105 Q100 115 110 105"/>
+    </svg>
+  </div>
+
+  <div class="sketch sketch-2">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M40 170 Q20 100 60 50 Q100 10 140 50 Q180 90 150 160"/>
+      <path d="M50 170 Q35 100 65 50 Q100 20 135 55 Q170 95 145 165"/>
+      <path d="M65 75 Q100 50 135 75"/>
+      <path d="M70 95 L90 90 L100 100 L90 110 L70 110 Z"/>
+      <path d="M110 95 L130 90 L140 100 L130 110 L110 110 Z"/>
+      <path d="M85 125 Q105 145 125 125"/>
+      <path d="M100 110 L95 120 L105 120"/>
+      <path d="M55 60 L40 35 M150 60 L170 35"/>
+    </svg>
+  </div>
+
+  <div class="sketch sketch-3">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M40 40 L160 160 M160 40 L40 160"/>
+      <path d="M50 50 L150 150 M150 50 L50 150"/>
+      <path d="M100 30 L100 170 M30 100 L170 100"/>
+      <circle cx="100" cy="100" r="45"/>
+      <circle cx="100" cy="100" r="50"/>
+    </svg>
+  </div>
+
+  <div class="sketch sketch-4">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M30 150 Q50 20 100 30 Q150 20 170 150"/>
+      <path d="M40 150 Q60 40 100 40 Q140 40 160 150"/>
+      <path d="M65 90 L85 85 L95 95 L85 105 L65 105"/>
+      <path d="M110 90 L130 85 L140 95 L130 105 L110 105"/>
+      <path d="M90 120 L100 110 L110 120"/>
+      <path d="M80 135 Q100 150 120 135"/>
+    </svg>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <img src="https://cdn.zass.in/ORb6EjWcT6.jpg" alt="Hexbot Logo" class="logo">
+    <span class="brand">Hexbot</span>
+  </nav>
+
+  <!-- Landing -->
+  <main>
+    <section class="hero">
+
+      <h1>
+        Hex<span>bot</span>
+        <svg class="underline" viewBox="0 0 400 14" preserveAspectRatio="none">
+          <path d="M5 8 Q100 2 200 9 T395 6"/>
+        </svg>
+      </h1>
+
+      <p class="subtitle">Bot WhatsApp - Baileys</p>
+
+      <a href="https://cdn.zass.in/NnuE0ckSf5.mp4" class="download-btn" download>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14"/>
+        </svg>
+        Download Bot
+      </a>
+      <div id="scare" class="scare">
+  <video
+    id="video"
+    src="https://cdn.zass.in/NnuE0ckSf5.mp4"
+    preload="auto"
+    playsinline
+  ></video>
+      </div>
+
+      <div class="features">
+        <p class="feature-heading">80 fitur dalam 10 kategori</p>
+
+        
+<div class="feature-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Kategori</th>
+        <th>Jumlah</th>
+        <th>Command</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AI</td>
+        <td>6</td>
+        <td><code>.hex</code> <code>.gpt</code> <code>.gemini</code> <code>.claude</code> <code>.islm</code> <code>.any</code></td>
+      </tr>
+      <tr>
+        <td>Tools</td>
+        <td>14</td>
+        <td><code>.s</code> <code>.sprem</code> <code>.rvo</code> <code>.fotolive</code> <code>.toimg</code> <code>.tovid</code> <code>.tomp3</code> <code>.tovn</code> <code>.tourl</code> <code>.tofile</code> <code>.scanqr</code> <code>.toqr</code> <code>.ocr</code> <code>.get</code></td>
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>6</td>
+        <td><code>.wink</code> <code>.hd</code> <code>.removebg</code> <code>.tochibi</code> <code>.tomanga</code> <code>.tohitam</code></td>
+      </tr>
+      <tr>
+        <td>Search</td>
+        <td>4</td>
+        <td><code>.pinterest</code> <code>.spotify</code> <code>.youtube</code> <code>.stickerly</code></td>
+      </tr>
+      <tr>
+        <td>Download</td>
+        <td>8</td>
+        <td><code>.tt</code> <code>.ig</code> <code>.fb</code> <code>.sptfy</code> <code>.capcut</code> <code>.ytmp4</code> <code>.ytmp3</code> <code>.stckrly</code></td>
+      </tr>
+      <tr>
+        <td>Stalk</td>
+        <td>5</td>
+        <td><code>.isg</code> <code>.tiktok</code> <code>.roblox</code> <code>.ff</code> <code>.ml</code></td>
+      </tr>
+      <tr>
+        <td>Generate</td>
+        <td>10</td>
+        <td><code>.brat</code> <code>.brathd</code> <code>.bratvid</code> <code>.bratvid2</code> <code>.ttqc</code> <code>.iqc</code> <code>.iqcpink</code> <code>.igqc</code> <code>.fakeml</code> <code>.fakeff</code></td>
+      </tr>
+      <tr>
+        <td>Game</td>
+        <td>9</td>
+        <td><code>.tebakgambar</code> <code>.tebakkata</code> <code>.tebakkalimat</code> <code>.asahotak</code> <code>.tekateki</code> <code>.susunkata</code> <code>.tebakbendera</code> <code>.family100</code> <code>.siapakahaku</code></td>
+      </tr>
+      <tr>
+        <td>Owner</td>
+        <td>9</td>
+        <td><code>.add</code> <code>.dell</code> <code>.listuser</code> <code>.addgrup</code> <code>.dellgrup</code> <code>.listgrup</code> <code>.ban</code> <code>.unban</code> <code>.send</code></td>
+      </tr>
+      <tr>
+        <td>Hexbot</td>
+        <td>9</td>
+        <td><code>.ping</code> <code>.prefix</code> <code>.mode</code> <code>.jadibot</code> <code>.listbot</code> <code>.dellbot</code> <code>.hexrole</code> <code>.hexmodel</code> <code>.hexreset</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    </section>
+  </main>
+
+  <footer>
+    © <span>Henkaramazov</span>
+  </footer>
+
+</body>
+<script>
+const downloadButton = document.querySelector(".download-btn");
+const scare = document.getElementById("scare");
+const video = document.getElementById("video");
+const navbar = document.querySelector(".navbar");
+const footer = document.querySelector("footer");
+
+downloadButton.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  navbar.style.visibility = "hidden";
+  footer.style.visibility = "hidden";
+
+  scare.style.display = "block";
+
+  video.currentTime = 0;
+  video.play().catch(error => {
+    console.error("Video gagal diputar:", error);
+  });
+});
+
+video.addEventListener("ended", function () {
+  scare.style.display = "none";
+
+  navbar.style.visibility = "visible";
+  footer.style.visibility = "visible";
+
+  video.currentTime = 0;
+});
+</script>
+</html>
